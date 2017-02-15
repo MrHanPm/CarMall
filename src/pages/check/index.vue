@@ -27,7 +27,12 @@
 	.ch-input{
 		border-radius: 4px;
 		border: 0;
+		font-size: 14px;
 		text-indent: 10px;
+	}
+	.disabled{
+		background: #f78488;
+		color: #fde8e8;
 	}
 </style>
 <template>
@@ -39,7 +44,7 @@
 			<input class="page ch-input" placeholder="卡车之家车商城验车／提车码为12位数字串号">
 		</div>
 		<div class="flex-wrap row-flex pname pbtn">
-			<router-link to="/check" class="page gobtn">去验车</router-link>
+			<router-link to="/check" class="page gobtn disabled">去验车</router-link>
 		</div>
 
 	</div>

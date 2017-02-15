@@ -1,7 +1,15 @@
 <style lang="less" scoped>
+	.ms-man{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
 	.ms-box{
-		background: #fff;
-		padding-left: 15px;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		overflow-y: scroll;
+    	-webkit-overflow-scrolling:touch;
 	}
 	.ms-list{
 		min-height: 90px;
@@ -10,6 +18,7 @@
 		.ms-ico{
 			flex:1;
 			padding-right: 10px;
+			
 			line-height: 30px;
 		}
 		.ms-red{position: relative;}
@@ -56,13 +65,56 @@
 			height: 30px;
 		}
 	}
-	.ms-list:nth-last-child(1){
+	.ms-bgs{
+		padding-left: 15px;
+		background: #fff;
+		box-sizing:border-box;
+	}
+	.ms-list:last-child{
 		border:0 none;
+	}
+	.alt-box{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,.6);
+		z-index: 999;
+		.alt-bgs{
+			width: 83%;
+			height: 130px;
+			background: #fff;
+			border-radius: 8px;
+			dt{
+				height: 75px;
+				width: 100%;
+				line-height: 75px;
+				font-size: 17px;
+				color: #333;
+				text-align: center;
+				border-bottom: 1px solid #E3EAF7;
+			}
+			dd{
+				float: left;
+				width: 49%;
+				height: 54px;
+				line-height: 54px;
+				text-align: center;
+				font-size: 16px;
+				color: #666;
+			}
+			.alt-ok{
+				color: #1571E5;
+				border-left: 1px solid #E3EAF7;
+			}
+		}
 	}
 </style>
 <template>
-	<div class="flex-wrap col-flex scroll-wrap">
-		<div class="flex-wrap col-flex ms-box">
+	<div class="ms-man">
+		<div class="ms-box">
+		  <div class="ms-bgs">
 
 			<div class="flex-wrap row-flex ms-list">
 				<div class="ms-ico ms-red"></div>
@@ -75,6 +127,17 @@
 				</div>
 			</div>
 
+			
+		  </div>
+		</div>
+
+
+		<div v-if="false" class="flex-wrap midCenter alt-box">
+			<dl class="alt-bgs">
+				<dt class="">确认删除这条系统消息？</dt>
+				<dd class="">取消</dd>
+				<dd class="alt-ok">确定</dd>
+			</dl>
 		</div>
 	</div>
 </template>

@@ -1,18 +1,30 @@
-import xhr from 'axios'
+import axios from 'axios'
 import API from './api'
+// axios.defaults.withCredentials = true
+// axios.defaults.headers.cookies = document.cookie
+var http = axios.create({
+  withCredentials: true,
+  headers: {'Cookie': document.cookie}
+
+})
+// http.defaults.withCredentials = true
+
+// axios({
+//   method: 'get',
+//   headers: {'Cookie': document.cookie},
+//   // url: API.getIndex(),
+//   withCredentials: true
+// })
 
 class XHR {
 
-// 获取当天拍卖场列表
-  getToday (page) {
-    return xhr({ 
-              url: API.getToday(page),
-              type: 'get'
-          })
+// 
+  getIndex () {
+    return http.get(API.getIndex())
     }
-// 获取登录用户信息
+
   getUsInfo () {
-    return xhr({ 
+    return xhr({
               url: API.getUsInfo(),
               type: 'get'
           })

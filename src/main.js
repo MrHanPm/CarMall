@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import InfiniteScroll from 'vue-infinite-scroll'
 
 import routes from './config/routes'
 import store from './store/'
@@ -14,13 +15,15 @@ Object.keys(components).forEach((key) => {
 
 Vue.use(VueRouter)
 
+Vue.use(InfiniteScroll)
+
 const router = new VueRouter({
     routes
 })
 router.beforeEach(({meta, path}, from, next) => {
     // var { auth = true } = meta
     // var isLogin = Boolean(store.state.user.id) //true用户已登录， false用户未登录
-    // document.title = meta.pageTitle   // 动态更新页面标题
+    document.title = meta.pageTitle   // 动态更新页面标题
     // if (auth && !isLogin && path !== '/login') {
     //     return next({ path: '/login' })
     // }

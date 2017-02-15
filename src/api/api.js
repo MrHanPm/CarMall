@@ -1,17 +1,11 @@
 
 import { HTTP, HURL } from './config'
-var SESSIONID
-let hase = window.location.pathname
-if (hase.length > 6) {
-  SESSIONID = hase.substring(1,hase.length)
-} else {
-  SESSIONID = '43e4117524ed279d985526adef06b0b11b9b4d40'
-}
-
+let SEK = JSON.parse(localStorage.getItem('vipLodData')) || {}
+document.cookie = `session_id=${SEK.data.sessionid}`
 class API {
-// 获取当天拍卖场列表
-  getToday (page) {
-    return  `${HTTP}/salesroom/today/${page}/10?session_id=${SESSIONID}`
+// 
+  getIndex () {
+    return  `${HTTP}/order/count`
   }
 // 获取登录用户信息
   getUsInfo () {
