@@ -46,34 +46,37 @@
 <template>
 	<section class="flex-wrap col-flex item-box">
 		<div class="flex-wrap row-flex midCenter ib-time">
-            <div class="page">下单时间：2016-12-12 12:12</div>
+            <div class="page">下单时间：{{DATA.date}}</div>
         </div>
 		<div class="flex-wrap row-flex midCenter ib-nobe" >
-            <div class="ib-left">订单编号：34534343454</div>
-            <div class="ib-right">已成交</div>
+            <div class="ib-left">订单编号：{{DATA.id}}</div>
+            <div class="ib-right">{{DATA.order_status}}</div>
         </div>
         <div class="flex-wrap row-flex ib-box page">
-            <div class="flex-wrap row-flex ib-icon page"><img :src="icon" class="page" alt=""></div>
+            <div class="flex-wrap row-flex ib-icon page">
+                <img :src="DATA.productInfo.imguri" class="page" alt=""/>
+            </div>
             <div class="flex-wrap col-flex ib-items">
-                <div>衣服解决的</div>
-                <div>车架号：2323frr</div>
-                <div>颜色：红色</div>
-                <div>商城价：<i class="red">233元</i></div>
-                <div>库存时长：10个月</div>
+                <div>{{DATA.productInfo.name}}</div>
+                <div>车架号：{{DATA.productInfo.vin}}</div>
+                <div>颜色：{{DATA.productInfo.color}}</div>
+                <div>商城价：<i class="red">
+                    {{DATA.productInfo.price}}元</i></div>
+                <div>库存时长：{{DATA.productInfo.store_date}}个月</div>
             </div>
         </div>
 	</section>
 </template>
 <script>
-    import logo from './logo.png'
+    // import logo from './logo.png'
     export default {
         data() {
             return {
-                icon: logo
+                // icon: logo
             }
         },
         props: {
-            
+            DATA: Object,
         },
         methods: {
             // switchThread (id) {

@@ -21,8 +21,8 @@
 			
 			line-height: 30px;
 		}
-		.ms-red{position: relative;}
-		.ms-red:after{
+		.msRed{position: relative;}
+		.msRed:after{
 			content: ' ';
 			width: 8px;
 			height: 8px;
@@ -113,43 +113,130 @@
 </style>
 <template>
 	<div class="ms-man">
-		<div class="ms-box">
-		  <div class="ms-bgs">
+		<div class="ms-box"
+		v-infinite-scroll="loadPage"
+        infinite-scroll-disabled="isLoad"
+        infinite-scroll-distance="60">
 
-			<div class="flex-wrap row-flex ms-list">
-				<div class="ms-ico ms-red"></div>
+		  <transition-group name="list" class="ms-bgs" tag="div">
+
+			<div v-for="(item, index) in DATA"
+                 v-bind:key="index"
+				 class="flex-wrap row-flex ms-list">
+				<div class="ms-ico" :class="{msRed:item.type === 0}"></div>
 				<div class="flex-wrap col-flex ms-item">
-					<div class="page ms-msg">对方回复大哥电饭锅对方回复大哥电饭锅电饭锅对方回复大哥电饭锅电饭锅对方回复大哥电饭锅电饭锅对方</div>
+					<div class="page ms-msg"
+						 @click="readMsg(index,item.id)">{{item.content}}</div>
 					<div class="flex-wrap row-flex ms-time">
-						<div class="ms-msg-left">2016.12.22 12:12</div>
-						<div class="ms-msg-right"></div>
+						<div class="ms-msg-left">{{item.add_time}}</div>
+						<div class="ms-msg-right" @click="clickDel(index,item.id)"></div>
 					</div>
 				</div>
 			</div>
 
-			
-		  </div>
+		  </transition-group>
+		  <v-more :show="loadMore"
+                    :top="DATA.length > 0 ? true : false"
+                    :no="DATA.length === 0 ? true : false"></v-more>
 		</div>
 
-
-		<div v-if="false" class="flex-wrap midCenter alt-box">
+		<div v-if="delBox" class="flex-wrap midCenter alt-box">
 			<dl class="alt-bgs">
 				<dt class="">确认删除这条系统消息？</dt>
-				<dd class="">取消</dd>
-				<dd class="alt-ok">确定</dd>
+				<dd class="" @click="clickDel('','')">取消</dd>
+				<dd class="alt-ok" @click="delMsg()">确定</dd>
 			</dl>
 		</div>
 	</div>
 </template>
 <script>
-    import { mapState } from 'vuex'
-
+    import XHR from '../../api/service'
     export default {
 		data() {
-			return {
-				pageTitle: '首页'
-			}
-		},
-        // computed: mapState({ user: state => state.user }),
+            return {
+                delBox: false,
+                loadMore: true,
+                isLoad: false,
+                page:1,
+                DATA: [],
+                delId: '',
+                delIndex: ''
+            }
+        },
+        created () {},
+        methods:{
+            clickDel(indexs,mid){
+            	this.delIndex = indexs
+            	this.delId = mid
+                this.delBox = !this.delBox
+            },
+            loadPage(){
+                let self = this
+                let nowPage = this.page
+                let json = {}
+                json.page = nowPage
+                if (this.loadMore) {
+                    this.isLoad = true
+                    nowPage++
+                    XHR.getMessage(json)
+                    .then(function (res) {
+                        // console.log(res)
+                        if (res.data.status === 1) {
+                            if(res.data.latest === 1) {
+                                self.loadMore = false
+                            } else {
+                                self.isLoad = false
+                                self.page = nowPage
+                            }
+                            self.DATA.push(...res.data.data)
+                        }
+                        
+                    })
+                    .catch(function (err) {
+                        // self.showAlert('')
+                        // self.$router.push('notice')
+                    })
+                }
+            },
+            readMsg (inNumb,mid) {
+            	let self = this
+            	console.log(inNumb,mid)
+            	let json = {}
+            	json.mid = mid
+            	if (this.DATA[inNumb].type === 0) {
+            		XHR.getMsgUpdate(json)
+	                .then(function (res) {
+	                    // console.log(res)
+	                    if (res.data.status === 1) {
+	                        self.DATA[inNumb].type = 1
+	                    }
+	                })
+	                .catch(function (err) {
+	                    // self.showAlert('')
+	                    // self.$router.push('notice')
+	                })
+            	}
+            },
+            delMsg () {
+            	let self = this
+            	const {delIndex, delId} = this
+            	console.log(delIndex,delId)
+            	let json = {}
+            	json.mid = delId
+            	this.delBox = !this.delBox
+        		XHR.getDelMsg(json)
+                .then(function (res) {
+                    // console.log(res)
+                    if (res.data.status === 1) {
+                        self.DATA.splice(delIndex,1)
+                    }
+                })
+                .catch(function (err) {
+                    // self.showAlert('')
+                    // self.$router.push('notice')
+                })
+            	
+            }
+        }
     }
 </script>

@@ -24,7 +24,7 @@
     export default {
         data() {
             return {
-                table: 1,
+                table: 3,
                 loadMore: true,
                 isLoad: false,
                 page:1,
@@ -42,7 +42,7 @@
                 let self = this
                 let nowPage = this.page
                 let json = {}
-                json.status = 1
+                json.status = 3
                 json.page = nowPage
                 if (this.loadMore) {
                     this.isLoad = true

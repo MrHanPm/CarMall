@@ -41,24 +41,26 @@
     dl:first-child{margin-top: 2px;}
 </style>
 <template>
-    <div class="">
-        <dl class="de-box de-msg-box">
-            <dd>跟进时间：6576767</dd>
-            <dd>跟进方式：567567567fhg</dd>
-            <dd>客户所在地：刘强</dd>
-            <dd>购车用途：343434</dd>
-            <dd>意向价格：<i class="red">899万</i></dd>
+    <transition-group name="list" tag="div">
+        <dl v-for="(item, index) in DATA"
+        v-bind:key="index"
+        class="de-box de-msg-box">
+            <dd>跟进时间：{{item.track_time}}</dd>
+            <dd>跟进方式：{{item.status}}</dd>
+            <dd>客户所在地：{{item.region}}</dd>
+            <dd>购车用途：{{item.type}}</dd>
+            <dd>意向价格：<i class="red">{{item.track_amount}}万</i></dd>
             <dt>
-                <i>备注：</i>意向价意向价意向价意意向
+                <i>备注：</i><pre>{{item.remark}}</pre>
             </dt>
         </dl>
 
-    </div>
+    </transition-group>
 </template>
 <script>
     export default {
         props: {
-            
+            DATA: Array
         },
         methods: {
             // switchThread (id) {

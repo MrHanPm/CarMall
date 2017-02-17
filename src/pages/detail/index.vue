@@ -43,39 +43,119 @@
 <template>
 	<div class="flex-wrap col-flex dt-box">
         <div class="scroll-wrap bt-min">
-    		<v-mlist></v-mlist>
+    		<v-mlist :DATA="VDATA"></v-mlist>
     		<header class="flex-wrap row-flex head-box mt10">
     			<div class="page head-rout" 
-    	             :class="{ active: follow }">订单详情</div>
+    	             :class="{ active: table === 1 }"
+                     @click="clickTab(1)">订单详情</div>
     			<div class="page head-rout" 
-    	             :class="{ active: traded }">跟进记录</div>
+    	             :class="{ active: table === 2 }"
+                     @click="clickTab(2)">跟进记录</div>
     	        <div class="page head-rout" 
-    	             :class="{ active: refund }">处理记录</div>
+    	             :class="{ active: table === 3 }"
+                     @click="clickTab(3)">处理记录</div>
     		</header>
-
-    		<v-demsg v-if="false"></v-demsg>
-    		<v-defol v-if="false"></v-defol>
-    		<v-deals ></v-deals>
+    		<v-demsg v-if="table === 1" :DATA="VDATA"></v-demsg>
+    		<v-defol v-if="table === 2" :DATA="TDATA"></v-defol>
+    		<v-deals v-if="table === 3" :DATA="RDATA"></v-deals>
         </div>
         <footer class="dt-footer">
-            <a href="tel:123" class="bt-btn bt-call">呼叫用户</a>
-            <div class="bt-btn blue">添加跟进记录</div>
-            <div class="bt-btn">确认验车</div>
-            <div v-if="false" class="bt-btn">确认提车</div>
+            <a href="tel: VDATA.phone" class="bt-btn bt-call">呼叫用户</a>
+            <div class="bt-btn blue"
+                 @click="addTR()">添加跟进记录</div>
+            <div v-if="VDATA.isInspection === 1" class="bt-btn">确认验车</div>
+            <div v-if="VDATA.isExtract === 1"
+                 class="bt-btn"
+                 @click="goCars()">确认提车</div>
         </footer>
+        <div v-if="loadMore" class="jump-cover">
+            <div class="loading visible">
+                <span class="loading-ring"> </span>
+            </div>
+        </div>
+        <v-toast :show="toastShow" :txt="toastTxt"></v-toast>
+        <v-alert :show="alertShow" :txt="alertTxt"></v-alert>
 	</div>
 </template>
 <script>
-    // import { mapState } from 'vuex'
-
+    import XHR from '../../api/service'
+    import axios from 'axios'
     export default {
 		data() {
 			return {
-				follow: true,
-	            traded: false,
-	            refund: false,
+                toastShow: false,
+                toastTxt:'',
+                alertShow: false,
+                alertTxt:'',
+				table: 1,
+                loadMore: true,
+                VDATA: {
+                    productInfo:{},
+                    inspectionInfo:[],
+                    extractInfo:[],
+                    refundInfo:[],
+                    serviceInfo:[],
+                },
+                TDATA: [],
+                RDATA: []
 			}
 		},
-        // computed: mapState({ user: state => state.user }),
+        created () {
+            let self = this
+            let json = {}
+            json.id = this.$route.params.orderid
+            XHR.getOrderAll(json)
+            .then(axios.spread(function (View, Track, Record) {
+                console.log(View.data.data.id.length)
+                if (View.data.status === 1) {
+                    self.VDATA = View.data.data
+                    self.loadMore = false
+                }
+                if (Track.data.status === 1) {
+                    self.TDATA = Track.data.data
+                }
+                if (Record.data.status === 1) {
+                    self.RDATA = Record.data.data
+                }
+            }))
+            .catch(axios.spread(function (err, errs, errsd) {
+                // console.log(err, errs, errsd)
+            }))
+
+
+        },
+        methods: {
+            clickTab(index){
+                this.table = index
+            },
+            addTR () {
+                let url = `/form/${this.$route.params.orderid}`
+                this.$router.push(url)
+            },
+
+            goCars(){
+
+            },
+
+
+            showToast(txt) {
+              let self = this
+              self.toastShow = true
+              self.toastTxt = txt
+              setTimeout(function() {
+                self.toastShow = false
+                self.toastTxt = ''
+              },3000)
+            },
+            showAlert(txt) {
+              let self = this
+              self.alertShow = true
+              self.alertTxt = txt
+              setTimeout(function() {
+                self.alertShow = false
+                self.alertTxt = ''
+              },3000)
+            },
+        }
     }
 </script>

@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import InfiniteScroll from 'vue-infinite-scroll'
-
 import routes from './config/routes'
-import store from './store/'
+
 import components from './components/' //加载公共组件
 
 import './css/common.css'
@@ -14,7 +13,6 @@ Object.keys(components).forEach((key) => {
 })
 
 Vue.use(VueRouter)
-
 Vue.use(InfiniteScroll)
 
 const router = new VueRouter({
@@ -29,9 +27,19 @@ router.beforeEach(({meta, path}, from, next) => {
     // }
     next()
 })
-Vue.directive('title', {
-  inserted: function (el, binding) {
-    document.title = el.dataset.title
-  }
-})
-new Vue({ store, router }).$mount('#app')
+
+new Vue({ router }).$mount('#app')
+
+
+/**
+// Vue.directive('title', {
+//   inserted: function (el, binding) {
+//     document.title = el.dataset.title
+//   }
+// })
+
+// <div v-title data-title="标题内容">
+// ……组件内的内容
+// 这里的div可以是你组件内的任何标签
+// </div>
+**/

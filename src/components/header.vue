@@ -9,24 +9,35 @@
 <template>
 	<header class="flex-wrap row-flex head-box">
 		<div class="page head-rout" 
-             :class="{ active: follow }">跟进中</div>
+             :class="{ active: table === 1 }"
+             @click="actions(1)">跟进中</div>
 		<div class="page head-rout" 
-             :class="{ active: traded }">已成交</div>
+             :class="{ active: table === 2 }"
+             @click="actions(2)">已成交</div>
         <div class="page head-rout" 
-             :class="{ active: refund }">已退款</div>
+             :class="{ active: table === 3 }"
+             @click="actions(3)">已退款</div>
 	</header>
 </template>
 <script>
     export default {
         props: {
-            follow: Boolean,
-            traded: Boolean,
-            refund: Boolean,
+            table: {
+                type: Number,
+                default: 1
+            }
         },
         methods: {
-            // switchThread (id) {
-            //   this.$store.dispatch('switchThread', { id })
-            // }
+            actions (url){
+                switch (url) {
+                    case 1:
+                        return this.$router.push('follow')
+                    case 2:
+                        return this.$router.push('traded')
+                    case 3:
+                        return this.$router.push('refund')
+                }
+            }
         }
     }
 </script>

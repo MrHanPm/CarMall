@@ -1,47 +1,68 @@
 import axios from 'axios'
 import API from './api'
-// axios.defaults.withCredentials = true
-// axios.defaults.headers.cookies = document.cookie
-var http = axios.create({
-  withCredentials: true,
-  headers: {'Cookie': document.cookie}
+import { SEID } from './api'
 
-})
-// http.defaults.withCredentials = true
-
-// axios({
-//   method: 'get',
-//   headers: {'Cookie': document.cookie},
-//   // url: API.getIndex(),
-//   withCredentials: true
-// })
 
 class XHR {
-
-// 
-  getIndex () {
-    return http.get(API.getIndex())
-    }
-
-  getUsInfo () {
-    return xhr({
-              url: API.getUsInfo(),
-              type: 'get'
-          })
+  getLogin () {
+    return axios.get(API.getLogin(),{params:{sessionid:SEID}})
   }
 
+  getIndex () {
+    return axios.get(API.getIndex(),{params:{sessionid:SEID}})
+
+    }
+
+// 订单管理
+  getOrder (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getOrder(),{params:json})
+  }
+// 订单详情
+  getOrderAll (json) {
+    return  axios.all([this.getOrderView(json), this.getRecord(json), this.getTrack(json)])
+  }
+// 订单详情
+  getOrderView (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getOrderView(),{params:json})
+  }
+// 处理记录
+  getRecord (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getRecord(),{params:json})
+  }
+// 跟踪记录
+  getTrack (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getTrack(),{params:json})
+  }
+
+// 提车
+  getExtract (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getExtract(),{params:json})
+  }
+// 消息
+  getMessage (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getMessage(),{params:json})
+  }
+// 修改单条消息状态
+  getMsgUpdate (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getMsgUpdate(),{params:json})
+  }
+// 删除单条消息
+  getDelMsg (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getDelMsg(),{params:json})
+  }
 
 
   isAlert (res) {
     if (res.status === 1) {
-        if( typeof(res.data) == 'string' ) {
-          alert(res.data)
-        } else {
-          let url = window.location.href
-          alert(res.data.error_msg)
-          window.location.href = 'http://2b.360che.com/m/logging.php?action=login&referer=' + url
-        }
-        return false
+         
     } else {
       return true
     }

@@ -4,20 +4,17 @@
 // 后端 API 地址，最好以 http(s):// 打头
 export const HTTP = 'http://test-admin-api.mall.com'
 
-export const HURL = 'http://2b.360che.com'
+// export const HURL = 'http://2b.360che.com'
 
-export const errHandler = (e) => {
-  console.error(e)
-  // alert('网络异常或服务器错误！')
-  // window.location.href = 'http://tao-yufabu.360che.com/member'
-}
+export const DEBUG = true
+
 
 
 
 
 
 /*本地存储数据名称表(Tool.localItem)
-WXCFG   微信配置
+
 
 
 */

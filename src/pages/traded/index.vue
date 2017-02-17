@@ -13,7 +13,7 @@
         infinite-scroll-disabled="isLoad"
         infinite-scroll-distance="60">
             <v-plist :DATA="DATA"></v-plist>
-            <v-more :show="loadMore"
+            <v-more :show="loadMore" 
                     :top="DATA.length > 0 ? true : false"
                     :no="DATA.length === 0 ? true : false"></v-more>
         </div>
@@ -24,7 +24,7 @@
     export default {
         data() {
             return {
-                table: 1,
+                table: 2,
                 loadMore: true,
                 isLoad: false,
                 page:1,
@@ -42,7 +42,7 @@
                 let self = this
                 let nowPage = this.page
                 let json = {}
-                json.status = 1
+                json.status = 2
                 json.page = nowPage
                 if (this.loadMore) {
                     this.isLoad = true

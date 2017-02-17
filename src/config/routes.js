@@ -6,13 +6,13 @@ export default [
         component: App,
         children: [
             {
-                path: '/loding', //loding
+                path: '/', //loding
                 meta: { pageTitle: '车商城' },
                 component: resolve => require(['../pages/loding/'], resolve)
             },
             {
                 path: '/notice', //宣传BANNER
-                component: resolve => require(['../pages/login/'], resolve)
+                component: resolve => require(['../pages/notice/'], resolve)
             },
             {
                 path: '/msg', //消息
@@ -20,12 +20,12 @@ export default [
                 component: resolve => require(['../pages/msg/'], resolve)
             },
             {
-                path: '/detail', //订单详情页
+                path: '/detail/:orderid', //订单详情页
                 meta: { pageTitle: '订单详情' },
                 component: resolve => require(['../pages/detail/'], resolve)
             },
             {
-                path: '/form', //添加跟进记录
+                path: '/form/:odid', //添加跟进记录
                 meta: { pageTitle: '添加跟进记录' },
                 component: resolve => require(['../pages/form/'], resolve)
             },
@@ -52,31 +52,26 @@ export default [
             {
                 path: '/traded', //已成交
                 meta: { pageTitle: '订单管理' },
-                component: resolve => require(['../pages/login/'], resolve)
+                component: resolve => require(['../pages/traded/'], resolve)
             },
             {
                 path: '/refund', //已退款
                 meta: { pageTitle: '订单管理' },
-                component: resolve => require(['../pages/login/'], resolve)
+                component: resolve => require(['../pages/refund/'], resolve)
             },
             {
-                path: '/login', //登录
-                meta: { auth: false, pageTitle: '登录' },
-                component: resolve => require(['../pages/login/'], resolve)
+                path: '/hot', // 成功后宣传图
+                meta: { auth: false, pageTitle: '车商城' },
+                component: resolve => require(['../pages/hot/'], resolve)
             },
             {
-                path: '/signout', //退出
-                meta: { pageTitle: '退出' },
-                component: resolve => require(['../pages/signout/'], resolve),
-            },
-            {
-                path: '/', //首页
+                path: '/home', //首页
                 meta: { auth: false, pageTitle: '车商城' },
                 component: resolve => require(['../pages/index/'], resolve)
             },
             {
                 path: '*', //其他页面，强制跳转到登录页面
-                redirect: '/loding'
+                redirect: '/'
             }
         ]
     }

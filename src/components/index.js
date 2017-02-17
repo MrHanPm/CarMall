@@ -4,4 +4,7 @@ import mlist from './mlist'
 import demsg from './detail/msg'
 import defol from './detail/follow'
 import deals from './detail/deal'
-export default { header, plist, mlist, demsg, defol, deals }
+import toast from './tool/toast'
+import alert from './tool/alert'
+import more from './tool/more'
+export default { header, plist, mlist, demsg, defol, deals, toast, alert, more }
