@@ -79,22 +79,21 @@
     }
 </style>
 <template>
-    <transition-group name="list" tag="div">
+    <div>
 
     	<section v-for="(item, index) in DATA"
-        v-bind:key="index"
-        class="flex-wrap row-flex da-box">
+                 class="flex-wrap row-flex da-box">
             <div class="flex-wrap col-flex da-line midCenter">
                 <div> </div>
             </div>
             <div class="flex-wrap col-flex da-msg midCenter">
                 <div class="da-list">{{item.add_time}}</div>
                 <div class="da-list">处理类型：{{item.status}}</div>
-                <div class="da-list">操作人：{{item.name}}</div>
+                <div class="da-list">操作人：【{{item.type}}】{{item.name}}</div>
             </div>
     	</section>
 
-    </transition-group>
+    </div>
 </template>
 <script>
     export default {

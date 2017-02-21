@@ -3,6 +3,7 @@ import App from '../app'
 export default [
     {
         path: '/',
+        meta: { pageTitle: '车商城' },
         component: App,
         children: [
             {
@@ -12,6 +13,7 @@ export default [
             },
             {
                 path: '/notice', //宣传BANNER
+                meta: { pageTitle: '车商城' },
                 component: resolve => require(['../pages/notice/'], resolve)
             },
             {
@@ -25,7 +27,7 @@ export default [
                 component: resolve => require(['../pages/detail/'], resolve)
             },
             {
-                path: '/form/:odid', //添加跟进记录
+                path: '/form/:orderid', //添加跟进记录
                 meta: { pageTitle: '添加跟进记录' },
                 component: resolve => require(['../pages/form/'], resolve)
             },
@@ -61,12 +63,12 @@ export default [
             },
             {
                 path: '/hot', // 成功后宣传图
-                meta: { auth: false, pageTitle: '车商城' },
+                meta: { pageTitle: '车商城' },
                 component: resolve => require(['../pages/hot/'], resolve)
             },
             {
                 path: '/home', //首页
-                meta: { auth: false, pageTitle: '车商城' },
+                meta: { pageTitle: '车商城' },
                 component: resolve => require(['../pages/index/'], resolve)
             },
             {

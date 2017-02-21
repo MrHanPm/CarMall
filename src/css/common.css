@@ -33,6 +33,12 @@ body,.app{
     height: 100%;
     overflow: hidden;
 }
+select {
+    direction: rtl;
+}
+select option {
+    direction: ltr;
+}
 .mt10{margin-top: 10px;}
 /** 水平伸缩容器**/
 .row-flex{

@@ -26,25 +26,29 @@
         .red{color: red;}
         dt{
             min-height: 34px;
-            max-height: 66px;
+            height: auto;
             margin-top: 8px;
-            word-wrap:break-word;
-            overflow-y: scroll;
             padding-top: 10px;
             border-top: 1px solid #f5f5f5;
             line-height: 25px;
             font-size: 14px;
             color: #666;
             i{color: #999;display: inline-block;}
+            pre{
+                min-height: 34px;
+                max-height: 150px;
+                word-wrap:break-word;
+                white-space:initial;
+                overflow-y: scroll;
+            }
         }
     }
     dl:first-child{margin-top: 2px;}
 </style>
 <template>
-    <transition-group name="list" tag="div">
+    <div>
         <dl v-for="(item, index) in DATA"
-        v-bind:key="index"
-        class="de-box de-msg-box">
+            class="de-box de-msg-box">
             <dd>跟进时间：{{item.track_time}}</dd>
             <dd>跟进方式：{{item.status}}</dd>
             <dd>客户所在地：{{item.region}}</dd>
@@ -55,7 +59,7 @@
             </dt>
         </dl>
 
-    </transition-group>
+    </div>
 </template>
 <script>
     export default {

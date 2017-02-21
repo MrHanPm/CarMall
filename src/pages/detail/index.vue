@@ -60,10 +60,12 @@
     		<v-deals v-if="table === 3" :DATA="RDATA"></v-deals>
         </div>
         <footer class="dt-footer">
-            <a href="tel: VDATA.phone" class="bt-btn bt-call">呼叫用户</a>
+            <a :href="'tel:'+ VDATA.phone" class="bt-btn bt-call">呼叫用户</a>
             <div class="bt-btn blue"
                  @click="addTR()">添加跟进记录</div>
-            <div v-if="VDATA.isInspection === 1" class="bt-btn">确认验车</div>
+            <div v-if="VDATA.isInspection === 1"
+                 class="bt-btn"
+                 @click="goCheck()">确认验车</div>
             <div v-if="VDATA.isExtract === 1"
                  class="bt-btn"
                  @click="goCars()">确认提车</div>
@@ -91,8 +93,8 @@
                 loadMore: true,
                 VDATA: {
                     productInfo:{},
-                    inspectionInfo:[],
-                    extractInfo:[],
+                    inspectionInfo:{},
+                    extractInfo:{},
                     refundInfo:[],
                     serviceInfo:[],
                 },
@@ -103,9 +105,15 @@
         created () {
             let self = this
             let json = {}
+            if(this.$route.query.t){
+                this.table = parseInt(this.$route.query.t)
+            }
+            if(this.$route.query.dd){
+                json.code = this.$route.query.dd
+            }
             json.id = this.$route.params.orderid
             XHR.getOrderAll(json)
-            .then(axios.spread(function (View, Track, Record) {
+            .then(axios.spread(function (View, Record, Track ) {
                 console.log(View.data.data.id.length)
                 if (View.data.status === 1) {
                     self.VDATA = View.data.data
@@ -129,12 +137,46 @@
                 this.table = index
             },
             addTR () {
+                localStorage.removeItem('MallFroms')
                 let url = `/form/${this.$route.params.orderid}`
                 this.$router.push(url)
             },
 
+            goCheck(){
+                if(this.$route.query.dd){
+                    let json = {}
+                    json.id = this.$route.params.orderid
+                    json.code = this.VDATA.code
+                    XHR.getInspec(json)
+                    .then(function (res) {
+                        if (res.data.status === 1) {
+                            window.location.reload()
+                        }
+                    })
+                    .catch(function (err) {
+                        // console.log(err, errs, errsd)
+                    })
+                } else {
+                    this.$router.push('/check')
+                }
+            },
             goCars(){
-
+                if(this.$route.query.dd){
+                    let json = {}
+                    json.id = this.$route.params.orderid
+                    json.code = this.VDATA.code
+                    XHR.getExtract(json)
+                    .then(function (res) {
+                        if (res.data.status === 1) {
+                            window.location.reload()
+                        }
+                    })
+                    .catch(function (err) {
+                        // console.log(err, errs, errsd)
+                    })
+                } else {
+                    this.$router.push('/check')
+                }
             },
 
 

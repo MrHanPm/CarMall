@@ -1,9 +1,9 @@
 <style lang="less" scoped>
 	.toast-box{
 		min-height: 25px;
-        width: 100px;
+        width: 160px;
         padding: 4px 10px;
-        background: rgba(0,0,0,.5);
+        background: rgba(0,0,0,.7);
         color: #fff;
         font-size: 15px;
         text-align:center;
@@ -12,7 +12,7 @@
         bottom: 120px;
         left: 50%;
         border-radius: 5px;
-        margin-left: -50px;
+        margin-left: -80px;
         -webkit-transform: translateZ(0);
 	}
 </style>

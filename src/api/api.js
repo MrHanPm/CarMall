@@ -1,7 +1,7 @@
 
 import { HTTP, DEBUG } from './config'
 let SEK = JSON.parse(localStorage.getItem('vipLodData')) || {}
-let SESSION = '44451_bffaa5b23aaaafffe750356339458f4f3b4fe072'
+let SESSION = '69593_fb1d2814ce453d2414ffbcecc060c5975cbe50cc'
 export const SEID = DEBUG ? SESSION : SEK.data.sessionid
 
 class API {
@@ -31,6 +31,7 @@ class API {
   }
 // 添加跟踪记录
   getCreate () {
+    // return  `${HTTP}/track/create?sessionid=${DEBUG ? SESSION : SEK.data.sessionid}`
     return  `${HTTP}/track/create`
   }
 // 地区接口
@@ -73,4 +74,4 @@ class API {
 }
 
 // 实例化后再导出
-export default new API()
+export default new API

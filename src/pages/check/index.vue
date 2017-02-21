@@ -41,24 +41,85 @@
 			<img :src="carbg" class="" alt="">
 		</div>
 		<div class="flex-wrap row-flex pname pbtn" style="margin:0;">
-			<input class="page ch-input" placeholder="卡车之家车商城验车／提车码为12位数字串号">
+			<input class="page ch-input" placeholder="卡车之家车商城验车／提车码为12位数字串号" 
+			v-model.trim="codes">
 		</div>
 		<div class="flex-wrap row-flex pname pbtn">
-			<router-link to="/check" class="page gobtn disabled">去验车</router-link>
+			<div class="page gobtn"
+			:class="{disabled: isNull }"
+			@click="goCheck()">去验车</div>
 		</div>
-
+		<v-toast :show="toastShow" :txt="toastTxt"></v-toast>
 	</div>
 </template>
 <script>
-    import { mapState } from 'vuex'
+    import XHR from '../../api/service'
     import carbg from './car.png'
     export default {
 		data() {
 			return {
 				carbg,
-				pageTitle: '首页'
+				toastShow: false,
+        		toastTxt:'',
+				isNull: true,
+
+				codes: ''
 			}
 		},
-        // computed: mapState({ user: state => state.user }),
+		watch:{
+			codes: 'changInput'
+		},
+        methods:{
+        	showToast(txt) {
+	          let self = this
+	          self.toastShow = true
+	          self.toastTxt = txt
+	          setTimeout(function() {
+	            self.toastShow = false
+	            self.toastTxt = ''
+	          },3000)
+	        },
+	        checkForm () {
+		        if(this.isNull){
+		        	return false
+		        }
+		        return true
+		    },
+		    changInput(curVal,oldVal){
+		    	if(curVal.length < '12'){
+		    		this.isNull = true
+		    	}
+		    	if(curVal.length == '12'){
+		    		this.isNull = false
+		    	}
+		    	if(curVal.length > 12) {
+		    		this.showToast("您输入已超出12位")
+		    	}
+		    },
+		    goCheck () {
+		    	if (this.checkForm()) {
+		    		let self = this
+		    		let json = {}
+		    		this.isNull = true
+		    		json.code = this.codes
+		    		XHR.getVerify(json)
+		    		.then(function (res) {
+                        // console.log(res)
+                        if (res.data.status === 1) {
+                        	let url = `/detail/${res.data.data}`
+                			self.$router.push({ path: url, query: { dd: self.codes }})
+                        } else {
+                        	self.showToast(res.data.errInfo)
+                        	self.isNull = false
+                        }
+                    })
+                    .catch(function (err) {
+                    	// console.log(err)
+                    	self.isNull = false
+                        // self.showToast(err)
+                    })
+		    	}
+		    }
+        }
     }
 </script>

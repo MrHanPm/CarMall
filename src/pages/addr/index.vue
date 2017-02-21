@@ -31,20 +31,51 @@
 </style>
 <template>
 	<ul class="ad-box">
-		<li class="active">北京</li>
-		<li>北京</li>
-		<li>北京</li>
+		<li v-for="(item, index) in DATA"
+		:class="{active: val == index}"
+		@click="addPos(index,item)">{{item}}</li>
 	</ul>
 </template>
 <script>
-    import { mapState } from 'vuex'
+    import XHR from '../../api/service'
 
     export default {
 		data() {
 			return {
-				pageTitle: '首页'
+				DATA: {},
+				val: '',
 			}
 		},
-        // computed: mapState({ user: state => state.user }),
+        created () {
+        	let self = this
+        	let json = {}
+        	json.type = 0
+        	json.parent_id = 0
+        	XHR.getRegion(json)
+        	.then(function (res) {
+                if (res.data.status === 1) {
+                    self.DATA = res.data.data
+                }
+            })
+            .catch(function (err) {
+                // console.log(err, errs, errsd)
+            })
+            let ADDRS = JSON.parse(localStorage.getItem('MallAddrs')) || ''
+            if(ADDRS !== ''){
+            	self.val = ADDRS.val
+            }
+
+        },
+        methods: {
+        	addPos (val,txt) {
+        		let json = {}
+		        this.val = val
+        		json.val = val
+        		json.txt = txt
+        		localStorage.removeItem('MallCitys')
+        		localStorage.setItem('MallAddrs',JSON.stringify(json))
+        		this.$router.push('/city')
+        	}
+        }
     }
 </script>

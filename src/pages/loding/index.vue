@@ -26,10 +26,11 @@
       XHR.getLogin()
       .then(function (res) {
         // self.showToast('')
-        console.log(res)
+        // console.log(res)
         if (res.data.status === 1) {
           self.$router.push('home')
         } else {
+          self.showAlert(res.data.errInfo)
           self.$router.push('notice')
         }
       })

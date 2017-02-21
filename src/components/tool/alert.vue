@@ -4,7 +4,7 @@
         width: 100%;
         box-sizing:border-box;
         padding: 6px 15px;
-        background: rgba(247,0,0,.5);
+        background: rgba(247,0,0,.7);
         color: #fff;
         font-size: 15px;
         text-align:center;
