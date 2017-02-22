@@ -22,6 +22,7 @@
       }
     },
     mounted () {
+      // localStorage.setItem('vipLodData','{"ishavingpwd":"1","iscanrob":"1","usercategory":"1","dealersalesallbrandsname":"一汽红塔,雷诺,东风小霸王,福田奥铃","salesmansalesbrandsname":"一汽红塔,雷诺,东风小霸王","sessionid":"45742_e76f187e3775d7b5e1194988d6ae4e703cf851fb","realname":"韩国料理","userid":"45742","dealerid":47911,"username":"18039221559","tel":"18039221559","dealername":"遵义瑞东汽车商贸有限公司","permission":[{"key":"crm","value":"1","remark":""},{"key":"find_share","value":"1","remark":""},{"key":"recharge","value":"0","remark":""},{"key":"cluespage","value":"0","remark":""}],"salesmansalesshopname":"遵义瑞东汽车商贸有限公司,遵义瑞东汽车商贸有限公司,遵义瑞东汽车商贸有限公司","alermsg":""}')
       let self = this
       XHR.getLogin()
       .then(function (res) {
@@ -30,7 +31,7 @@
         if (res.data.status === 1) {
           self.$router.push('home')
         } else {
-          self.showAlert(res.data.errInfo)
+          XHR.isErr(res)
           self.$router.push('notice')
         }
       })

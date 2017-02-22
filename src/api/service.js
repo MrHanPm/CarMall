@@ -1,11 +1,14 @@
 import axios from 'axios'
+import qs from 'qs'
 import API from './api'
 import { SEID } from './api'
 import { DEV_URL, PRO_URL, DEBUG } from './config'
 
-// var config = {
-//   essay-headers: {'X-My-Custom-Header': 'Header-Value'}
-// }
+var config = {
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  // headers: {'Content-Type': 'multipart/form-data'},
+  // headers: {'Content-Type': 'application/json'}
+}
 
 class XHR {
   getLogin () {
@@ -43,8 +46,7 @@ class XHR {
   }
 // 添加跟踪记录
   getCreate (json) {
-    json.sessionid = SEID
-    return  axios.get(API.getCreate(),{params:json})
+    return  axios.post(API.getCreate(),qs.stringify(json),config)
   }
 // 判断验车/提车
   getVerify (json) {
@@ -86,11 +88,12 @@ class XHR {
 
 
   isErr (res) {
-    if (res.data.status === 0 && res.data.errInfo == '此帐号已在其它地点登录，请重新登录。') {
+    if (res.data.status === 0 && res.data.errInfo.indexOf('其它地点登录') !== -1 ) {
+        alert(res.data.errInfo)
         if(DEBUG) {
-          window.location.href = `${DEV_URL}`
+          return window.location.href = `${DEV_URL}`
         } else {
-          window.location.href = `${PRO_URL}`
+          return window.location.href = `${PRO_URL}`
         }
     } else {
       alert(res.data.errInfo)

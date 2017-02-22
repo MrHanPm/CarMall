@@ -118,6 +118,8 @@
                 if (View.data.status === 1) {
                     self.VDATA = View.data.data
                     self.loadMore = false
+                } else {
+                    XHR.isErr(res)
                 }
                 if (Track.data.status === 1) {
                     self.TDATA = Track.data.data

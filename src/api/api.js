@@ -1,9 +1,10 @@
 
-import { HTTP, DEBUG } from './config'
+import { HTTP_DEV,HTTPS, DEBUG } from './config'
 let SEK = JSON.parse(localStorage.getItem('vipLodData')) || {}
-let SESSION = '69593_fb1d2814ce453d2414ffbcecc060c5975cbe50cc'
-export const SEID = DEBUG ? SESSION : SEK.data.sessionid
+let SESSION = '45742_09b9bc23979dd94d82911b15482453b617480062'
+export const SEID = DEBUG ? SESSION : SEK.sessionid
 
+const HTTP = DEBUG ? HTTP_DEV : HTTPS
 class API {
 // 登录
   getLogin () {
@@ -31,8 +32,8 @@ class API {
   }
 // 添加跟踪记录
   getCreate () {
-    // return  `${HTTP}/track/create?sessionid=${DEBUG ? SESSION : SEK.data.sessionid}`
-    return  `${HTTP}/track/create`
+    return  `${HTTP}/track/create?sessionid=${DEBUG ? SESSION : SEK.sessionid}`
+    // return  `${HTTP}/track/create`
   }
 // 地区接口
   getRegion () {

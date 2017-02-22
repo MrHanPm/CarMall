@@ -189,6 +189,8 @@
                                 self.page = nowPage
                             }
                             self.DATA.push(...res.data.data)
+                        } else {
+                            XHR.isErr(res)
                         }
                         
                     })

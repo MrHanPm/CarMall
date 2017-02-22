@@ -123,11 +123,15 @@
 		created () {
 			let SEK = JSON.parse(localStorage.getItem('vipLodData')) || {}
 			let self = this
-			this.name = SEK.data.dealername
+			this.name = SEK.dealername
 			XHR.getIndex()
 			.then(function (res) {
 				// console.log(res)
-				self.DATA = res.data.data
+				if (res.data.status === 1) {
+					self.DATA = res.data.data
+				} else {
+					XHR.isErr(res)
+				}
 			})
 			.catch(function (err) {
 		        // self.showAlert('')

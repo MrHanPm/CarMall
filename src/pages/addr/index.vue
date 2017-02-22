@@ -55,6 +55,8 @@
         	.then(function (res) {
                 if (res.data.status === 1) {
                     self.DATA = res.data.data
+                } else {
+                    XHR.isErr(res)
                 }
             })
             .catch(function (err) {

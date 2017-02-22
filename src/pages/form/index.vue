@@ -242,7 +242,7 @@
 					json.type = this.type
 					json.track_amount = this.amount
 					json.remark = this.remark
-					console.log(json)
+					// console.log(json)
 		    		XHR.getCreate(json)
 		    		.then(function (res) {
                         // console.log(res)
@@ -255,7 +255,7 @@
                         }
                     })
                     .catch(function (err) {
-                    	console.log(err)
+                    	// console.log(err)
                     	self.isNull = false
                         // self.showAlert(err)
                     })

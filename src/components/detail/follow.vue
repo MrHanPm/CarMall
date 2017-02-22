@@ -51,7 +51,7 @@
             class="de-box de-msg-box">
             <dd>跟进时间：{{item.track_time}}</dd>
             <dd>跟进方式：{{item.status}}</dd>
-            <dd>客户所在地：{{item.region}}</dd>
+            <dd>客户地址：{{item.region}}</dd>
             <dd>购车用途：{{item.type}}</dd>
             <dd>意向价格：<i class="red">{{item.track_amount}}万</i></dd>
             <dt>
