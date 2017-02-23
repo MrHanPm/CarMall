@@ -35,6 +35,7 @@
 	    	background: none;
 	    	border: 0;
 	    	font-size: 14px;
+	    	line-height: 43px;
 	    	text-align: right;
 	    }
 	    .fr-txt:after{
@@ -48,6 +49,12 @@
 	    	padding: 10px 10px 10px 0;
 	    	font-size: 14px;
 			box-sizing:border-box;
+	    }
+	    .we-cells-form{
+	    	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	    	-webkit-appearance: none;
+    		background-color: transparent;
+    		direction: rtl;
 	    }
 	}
 	.pname{
@@ -70,13 +77,16 @@
 	    background: #f78488;
 	    color: #fde8e8;
 	}
+	input[type="datetime-local"]{
+		text-align: right;
+	}
 </style>
 <template>
 	<div class="ad-box">
 		<div class="ad-bg">
 			<div class="flex-wrap row-flex midCenter fr-div">
 				<div class="fr-title">跟进时间</div>
-				<input type="datetime-local" v-model="time" class="fr-input page"/>
+				<input type="datetime-local" v-model="time" class="fr-input page we-cells-form"/>
 			</div>
 			<div class="flex-wrap row-flex midCenter fr-div">
 				<div class="fr-title">跟进方式</div>

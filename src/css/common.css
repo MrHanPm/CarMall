@@ -35,10 +35,17 @@ body,.app{
 }
 select {
     direction: rtl;
+    -webkit-appearance: none;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
 }
+select::-ms-expand { display: none; }
 select option {
     direction: ltr;
 }
+textarea{border: 0;}
+
 .mt10{margin-top: 10px;}
 /** 水平伸缩容器**/
 .row-flex{

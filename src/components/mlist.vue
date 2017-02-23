@@ -18,30 +18,42 @@
             padding-right: 15px;
             color: #ccc;
         }*/
-        .ib-nobe .ib-left{flex:3;}
+        .ib-nobe .ib-left{flex:4; overflow: scroll; white-space: nowrap;}
         .ib-nobe .ib-right{flex:1;text-align: right;padding-right: 15px;color: #DA242A;}
 
         .ib-box{
             padding-top: 15px;
             .ib-icon{
                 padding: 0 15px 9px 0;
+                width: 120px;
+                overflow: hidden;
+                img{
+                    height: auto;
+                }
             }
             .ib-items{
-                flex:2;
                 line-height: 22px;
                 font-size: 14px;
                 color: #666;
                 div:first-child{color:#333;}
                 div{
                     padding-right: 10px;
+                    display: block;
+                    width: 100%;
+                    white-space:nowrap;
                     overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow:ellipsis;
+                    height: 22px;
+                    text-overflow: ellipsis;
                 }
                 .red{color: red;}
             }
         }
 	}
+    @media screen and (max-width: 400px) {
+      .item-box .ib-box .ib-icon{
+        width: 100px;
+      }
+    }
 </style>
 <template>
 	<section class="flex-wrap col-flex item-box">
@@ -53,10 +65,10 @@
             <div class="ib-right">{{DATA.order_status}}</div>
         </div>
         <div class="flex-wrap row-flex ib-box page">
-            <div class="flex-wrap row-flex ib-icon page">
-                <img :src="DATA.productInfo.imguri" class="page" alt=""/>
+            <div class="ib-icon">
+                <img :src="DATA.productInfo.imguri" alt=""/>
             </div>
-            <div class="flex-wrap col-flex ib-items">
+            <div class="ib-items page">
                 <div>{{DATA.productInfo.name}}</div>
                 <div>车架号：{{DATA.productInfo.vin}}</div>
                 <div>颜色：{{DATA.productInfo.color}}</div>

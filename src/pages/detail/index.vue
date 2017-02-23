@@ -56,7 +56,7 @@
                      @click="clickTab(3)">处理记录</div>
     		</header>
     		<v-demsg v-if="table === 1" :DATA="VDATA"></v-demsg>
-    		<v-defol v-if="table === 2" :DATA="TDATA"></v-defol>
+    		<v-defol v-if="table === 2" :DATA="TDATA" @show-all="showAll"></v-defol>
     		<v-deals v-if="table === 3" :DATA="RDATA"></v-deals>
         </div>
         <footer class="dt-footer">
@@ -114,7 +114,7 @@
             json.id = this.$route.params.orderid
             XHR.getOrderAll(json)
             .then(axios.spread(function (View, Record, Track ) {
-                console.log(View.data.data.id.length)
+                // console.log(View.data.data.id.length)
                 if (View.data.status === 1) {
                     self.VDATA = View.data.data
                     self.loadMore = false
@@ -137,6 +137,9 @@
         methods: {
             clickTab(index){
                 this.table = index
+            },
+            showAll (id){
+                this.$set(this.TDATA[id],'showAll',true)
             },
             addTR () {
                 localStorage.removeItem('MallFroms')

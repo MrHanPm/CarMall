@@ -35,11 +35,28 @@
             color: #666;
             i{color: #999;display: inline-block;}
             pre{
-                min-height: 34px;
-                max-height: 150px;
+                min-height: 28px;
                 word-wrap:break-word;
                 white-space:initial;
+                max-height: 100px;
                 overflow-y: scroll;
+            }
+            .press{
+                max-height: none;
+                overflow-y: visible;
+            }
+            .deDown{
+                border-top: 1px solid #f5f5f5;
+                height: 25px;
+                line-height: 32px;
+                font-size: 13px;
+                text-align: center;
+                box-shadow: 0 -20px 32px #fff;
+                z-index: 55;
+                position: relative;
+            }
+            .displayNone{
+                display: none;
             }
         }
     }
@@ -55,7 +72,11 @@
             <dd>购车用途：{{item.type}}</dd>
             <dd>意向价格：<i class="red">{{item.track_amount}}万</i></dd>
             <dt>
-                <i>备注：</i><pre>{{item.remark}}</pre>
+                <pre :class="{press: item.showAll }"><i>备注：</i>{{item.remark}}</pre>
+                <div v-if="item.remark.length > 300"
+                     class="deDown"
+                     :class="{displayNone: item.showAll}"
+                     @click="$emit('show-all', index)">展开全部 ▾</div>
             </dt>
         </dl>
 
@@ -67,9 +88,6 @@
             DATA: Array
         },
         methods: {
-            // switchThread (id) {
-            //   this.$store.dispatch('switchThread', { id })
-            // }
         }
     }
 </script>

@@ -27,6 +27,8 @@
 	    		top: 2px;
 	    	}
 	    }
+        .jump-cover{position: fixed;left:0;top:0;width: 100%;height:100%;z-index: 1001;background: #f5f5f5;}
+        .jump-cover .loading{position: absolute;margin:0;left:50%;top:50%;-webkit-transform: translate3d(-50%,-50%,0);transform: translate3d(-50%,-50%,0);}
 	}
 </style>
 <template>
@@ -34,6 +36,11 @@
 		<li v-for="(item, index) in DATA"
 		:class="{active: val == index}"
 		@click="addPos(index,item)">{{item}}</li>
+        <li v-if="loadMore" class="jump-cover">
+            <div class="loading visible">
+                <span class="loading-ring"> </span>
+            </div>
+        </li>
 	</ul>
 </template>
 <script>
@@ -43,6 +50,7 @@
 		data() {
 			return {
 				DATA: {},
+                loadMore: true,
 				val: '',
 			}
 		},
@@ -54,6 +62,7 @@
         	XHR.getRegion(json)
         	.then(function (res) {
                 if (res.data.status === 1) {
+                    self.loadMore = false
                     self.DATA = res.data.data
                 } else {
                     XHR.isErr(res)

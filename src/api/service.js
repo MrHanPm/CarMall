@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import API from './api'
 import { SEID } from './api'
-import { DEV_URL, PRO_URL, DEBUG } from './config'
+import { DEV_URL, PRO_URL } from './config'
 
 var config = {
   headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -90,11 +90,11 @@ class XHR {
   isErr (res) {
     if (res.data.status === 0 && res.data.errInfo.indexOf('其它地点登录') !== -1 ) {
         alert(res.data.errInfo)
-        if(DEBUG) {
+
           return window.location.href = `${DEV_URL}`
-        } else {
-          return window.location.href = `${PRO_URL}`
-        }
+
+          // return window.location.href = `${PRO_URL}`
+
     } else {
       alert(res.data.errInfo)
     }

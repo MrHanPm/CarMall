@@ -79,25 +79,25 @@
             <li>最晚提车：{{DATA.extract_date}}</li>
         </ul>
 
-        <ul v-if="DATA.status < 4"
+        <ul v-if="DATA.inspectionInfo.dealer_time"
         class="de-box de-yu-time mt10">
             <li>商户验车时间：{{DATA.inspectionInfo.dealer_time}}</li>
             <li v-if="DATA.inspectionInfo.type > 0">验车完成时间：{{DATA.inspectionInfo.user_time}}</li>
         </ul>
 
-        <ul v-if="DATA.status < 4 && DATA.status > 1"
+        <ul v-if="DATA.extractInfo.dealer_time"
         class="de-box de-yu-time mt10"
         :class="{isBuy: DATA.extractInfo.type > 0}">
             <li>商户提车时间：{{DATA.extractInfo.dealer_time}}</li>
             <li v-if="DATA.extractInfo.type > 0">用户提车时间：{{DATA.extractInfo.user_time}}</li>
         </ul>
 
-        <ul v-if="DATA.status > 3" v-for="item in DATA.refundInfo"
+        <ul v-if="DATA.refundInfo.length > 0" v-for="item in DATA.refundInfo"
         class="de-box de-yu-time mt10"
         :class="{noBuy: item.status == '3'}">
-            <li>申请时间：</li>
-            <li>审核通过时间：</li>
-            <li>退款时间：</li>
+            <li>申请时间：{{item.apply_time}}</li>
+            <li>审核通过时间：{{item.audit_time}}</li>
+            <li>退款时间：{{item.refund_time}}</li>
         </ul>
     </div>
 </template>

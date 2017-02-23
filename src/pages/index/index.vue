@@ -8,7 +8,10 @@
 	.pname{
 		height: 44px;
 		padding: 0 15px;
+		width: 100%;
+		box-sizing:border-box;
 		white-space: nowrap;
+		overflow: hidden;
 		text-overflow:ellipsis;
 		line-height: 44px;
 		font-size: 18px;
@@ -74,7 +77,7 @@
 <template>
 	<div class="flex-wrap col-flex scroll-wrap">
 		<router-link to="/hot" class="banner"><img :src="banner" class="banner" alt=""></router-link>
-		<div class="flex-wrap row-flex pname">{{name}}</div>
+		<div class="pname">{{name}}</div>
 
 		<div class="flex-wrap col-flex plist">
 			<router-link class="flex-wrap row-flex page plist-pitem pborder midCenter" to="/follow">
