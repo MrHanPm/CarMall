@@ -73,8 +73,8 @@
                 <div>车架号：{{DATA.productInfo.vin}}</div>
                 <div>颜色：{{DATA.productInfo.color}}</div>
                 <div>商城价：<i class="red">
-                    {{DATA.productInfo.price}}元</i></div>
-                <div>库存时长：{{DATA.productInfo.store_date}}个月</div>
+                    {{DATA.productInfo.price}}万元</i></div>
+                <div>库存时长：{{DATA.productInfo.store_date}}天</div>
             </div>
         </div>
 	</section>

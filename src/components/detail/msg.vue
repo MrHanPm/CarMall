@@ -95,9 +95,10 @@
         <ul v-if="DATA.refundInfo.length > 0" v-for="item in DATA.refundInfo"
         class="de-box de-yu-time mt10"
         :class="{noBuy: item.status == '3'}">
-            <li>申请时间：{{item.apply_time}}</li>
-            <li>审核通过时间：{{item.audit_time}}</li>
-            <li>退款时间：{{item.refund_time}}</li>
+            <li>退款申请时间：{{item.apply_time}}</li>
+            <li v-if="item.status == '1' || item.status == '3'">审核时间：{{item.audit_time}}</li>
+            <li v-if="item.status == '2'">驳回时间：{{item.audit_time}}</li>
+            <li v-if="item.status == '3'">退款时间：{{item.refund_time}}</li>
         </ul>
     </div>
 </template>

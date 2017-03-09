@@ -63,10 +63,10 @@
             <a :href="'tel:'+ VDATA.phone" class="bt-btn bt-call">呼叫用户</a>
             <div class="bt-btn blue"
                  @click="addTR()">添加跟进记录</div>
-            <div v-if="VDATA.isInspection === 1"
+            <div v-if="VDATA.isInspection == '1'"
                  class="bt-btn"
                  @click="goCheck()">确认验车</div>
-            <div v-if="VDATA.isExtract === 1"
+            <div v-if="VDATA.isExtract == '1'"
                  class="bt-btn"
                  @click="goCars()">确认提车</div>
         </footer>

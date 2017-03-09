@@ -141,28 +141,16 @@ header,footer{
 .isBuy,.noBuy{
     position: relative;
 }
-.isBuy:after,.noBuy:after{
-    content: '已提车';
-    position: absolute;
-    right: -10px;
-    top: 0;
-    width: 74px;
-    line-height: 74px;
-    text-align: center;
-    color: #2eda8d;
-    height: 74px;
-    font-size: 15px;
-    background: url(./lv.png) no-repeat;
-    background-size: cover;
-    -webkit-transform:rotate(-30deg);
-}
-.noBuy:after{
-    content: '已退款';
-    background-image: url(./red.png);
-    color: #ec272e;
-}
 
-
+.fr-textarea{
+    width: 100%;
+    background: #fff;
+    border: 10px solid #fff;
+    font-size: 14px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    box-sizing:border-box;
+}
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s

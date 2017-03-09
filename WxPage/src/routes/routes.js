@@ -3,27 +3,22 @@ import App from '../app'
 export default [
     {
         path: '/',
-        meta: { pageTitle: '车商城' },
+        meta: { pageTitle: '微发布' },
         component: App,
         children: [
             {
                 path: '/', //loding
-                meta: { pageTitle: '车商城' },
+                meta: { pageTitle: '加载' },
                 component: resolve => require(['../pages/loding/'], resolve)
             },
             {
-                path: '/msg', //消息
-                meta: { pageTitle: '我的消息' },
-                component: resolve => require(['../pages/msg/'], resolve)
-            },
-            {
                 path: '/form/:articleid', //添加跟进记录
-                meta: { pageTitle: '添加跟进记录' },
+                meta: { pageTitle: '文章编辑' },
                 component: resolve => require(['../pages/form/'], resolve)
             },
             {
                 path: '/home', //首页
-                meta: { pageTitle: '车商城' },
+                meta: { pageTitle: '文章列表' },
                 component: resolve => require(['../pages/index/'], resolve)
             },
             {

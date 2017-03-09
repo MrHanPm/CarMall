@@ -4,7 +4,7 @@ import { HTTP_DEV,HTTPS, DEBUG } from './config'
 const HTTP = DEBUG ? HTTP_DEV : HTTPS
 class API {
   getWxConfig () {
-    return  `${HTTP}/api`
+    return  `${HTTP}/api/auth/WX/GetAuthorization`
   }
 
 // 读取文章列表

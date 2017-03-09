@@ -4,9 +4,9 @@ import API from './api'
 import { DEV_URL, PRO_URL, DEBUG } from './config'
 
 var SEID
-let hase = window.location.pathname
-if (hase.length > 6) {
-  SEID = hase.substring(1,hase.length)
+let hase = window.location.search
+if (hase.length > 9) {
+  SEID = hase.substring(8,hase.length)
 } else {
   SEID = 'oCAQ0szOUWhNtcyYzATotEFYacEo'
 }
@@ -17,7 +17,7 @@ var config = {
 
 class XHR {
   getWxConfig () {
-    return axios.get(API.getWxConfig())
+    return axios.get(API.getWxConfig(),{params:{'openid':SEID}})
   }
 
 // 读取文章列表
@@ -49,15 +49,12 @@ class XHR {
 
 
   isErr (res) {
-    if (res.data.status === 0 && res.data.errInfo.indexOf('其它地点登录') !== -1 ) {
-        alert(res.data.errInfo)
-
+    if (res.data.status === 0) {
+        alert(`${res.data.message}或者登录过期`)
           // return window.location.href = `${DEV_URL}`
-
           // return window.location.href = `${PRO_URL}`
-
     } else {
-      alert(res.data.errInfo)
+      alert(res.data.message)
     }
   }
   

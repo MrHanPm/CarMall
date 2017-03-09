@@ -135,7 +135,7 @@
 			<div v-for="(item, index) in DATA"
 	             v-bind:key="index" 
 	        	class="flex-wrap col-flex ms-list">
-				<div class="li-tit">{{item.title}}</div>
+				<div class="li-tit" @click="goUrl(item.url)">{{item.title}}</div>
 				<div class="flex-wrap row-flex li-tol">
 					<em>{{item.editor}}</em>
 					<em class="ico-ai">{{item.clickcount}}</em>
@@ -145,7 +145,7 @@
 				<div class="flex-wrap row-flex li-btn">
 					<div @click="mdfAut(item.articleid)">修改</div>
 					<div v-if="item.ispublish == false" class="bt-gre"
-						 @click="chkAut(index,item.articleid)">发布</div>
+						 @click="readRom(index,item.articleid)">发布</div>
 					<div v-if="item.ispublish == true" class="bt-red"
 					     @click="clickRom(index,item.articleid)">取消发布</div>
 				</div>
@@ -165,6 +165,13 @@
 				<dd class="alt-ok" @click="romPub(2)">确定</dd>
 			</dl>
 		</div>
+        <div v-if="readBox" class="flex-wrap midCenter alt-box">
+            <dl class="alt-bgs">
+                <dt class="">确认发布此文？</dt>
+                <dd class="" @click="readRom('','')">取消</dd>
+                <dd class="alt-ok" @click="romPub(1)">确定</dd>
+            </dl>
+        </div>
 	</div>
 </template>
 <script>
@@ -173,6 +180,7 @@
 		data() {
             return {
                 delBox: false,
+                readBox: false,
                 loadMore: true,
                 isLoad: false,
                 page:1,
@@ -184,14 +192,14 @@
         created () {},
         methods:{
             clickRom(indexs,mid){
-            	this.delIndex = indexs
-            	this.delId = mid
+                this.delIndex = indexs
+                this.delId = mid
                 this.delBox = !this.delBox
             },
-            chkAut(indexs,mid){
+            readRom(indexs,mid){
             	this.delIndex = indexs
             	this.delId = mid
-            	this.romPub(1)
+                this.readBox = !this.readBox
             },
             loadPage(){
                 let self = this
@@ -252,11 +260,12 @@
             romPub (nmb) {
             	let self = this
             	const {delIndex, delId} = this
-            	console.log(delIndex, delId)
+            	// console.log(delIndex, delId)
             	let json = {}
             	json.articleid = delId
             	json.publish = nmb
-            	if (nmb == '2') {this.delBox = !this.delBox }
+                if (nmb == '2') {this.delBox = !this.delBox}
+            	if (nmb == '1') {this.readBox = !this.readBox}
         		XHR.isPublish(json)
                 .then(function (res) {
                     // console.log(res)
@@ -273,6 +282,9 @@
                     // self.$router.push('notice')
                 })
             	
+            },
+            goUrl (url) {
+                window.location.href = url
             }
         }
     }

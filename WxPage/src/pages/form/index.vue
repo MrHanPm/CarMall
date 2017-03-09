@@ -28,15 +28,7 @@
 	    	border: 1px solid #E3EAF7;
 	    	overflow: hidden;
 	    }
-	    .fr-textarea{
-	    	width: 100%;
-	    	background: #fff;
-	    	border: 10px solid #fff;
-	    	font-size: 14px;
-	    	overflow-y: scroll;
-	    	border-radius: 5px;
-			box-sizing:border-box;
-	    }
+	    
 	    .msx-box{
 	    	height: 30px;
 	    	padding: 10px 0;
@@ -112,13 +104,12 @@
 				<em class="ico-img" @click="addImage('album')"></em>
 				<em class="ico-cuo" @click="addImage('camera')"></em>
 			</div>
-			<textarea v-model="content" class="fr-textarea page" 
-					  placeholder="请输入正文"></textarea>
 			
+			<wx-textarea-img :imgsurl="imageUrl" :content="content"></wx-textarea-img>
 		</div>
 		<div class="flex-wrap row-flex li-btn">
 			<div :class="{disabled: isNull}" @click="saveFom(1)">保存</div>
-			<div class="bt-jue" :class="{disabled: isNull}" @click="saveFom(2)">预览</div>
+			<div class="bt-jue" :class="{disabled: isNull}" @click="saveFom(2)">保存并预览</div>
 		</div>
 		<v-alert :show="alertShow" :txt="alertTxt"></v-alert>
 		<div v-if="loadMore" class="jump-cover">
@@ -141,14 +132,12 @@
 
 				amount: '',
 				content: '',
-
+				imageUrl: '',
 				img:[],
-
 			}
 		},
 		watch:{
-			amount:'checkTitle',
-			content: 'remarkInput'
+			amount:'checkTitle'
 		},
 		created () {
 			let self = this
@@ -161,7 +150,7 @@
                     	self.amount = res.data.data.title
                     	self.content = res.data.data.content
                     } else {
-                    	
+                    	XHR.isErr(res)
                     }
                 })
                 .catch(function (err) {
@@ -175,6 +164,18 @@
 
 		},
         methods:{
+        	getByteLen(val) {
+	            let len = 0
+	            for (let i = 0; i < val.length; i++) {
+	                let a = val.charAt(i)
+	                if (a.match(/[^\x00-\xff]/ig) != null) {
+	                    len += 2
+	                } else {
+	                    len += 1
+	                }
+	            }
+	            return len
+	        },
         	allJSON(){
         		if (!this.isNull) {
         			let json = {}
@@ -182,9 +183,8 @@
         				json.articleid = this.$route.params.articleid
         			}
         			json.title = this.amount
-        			json.content = this.content
-        			json.mediaids = ''
-        			json.accesstoken = ''
+        			json.content = this.$children[0].$refs.content.innerHTML
+        			json.mediaids = this.img.join(',')
         			return json
         		}
         	},
@@ -198,10 +198,10 @@
 		                    	if (nums == '1') {
 		                    		self.$router.go(-1)
 		                    	} else {
-		                    		window.location.href = ''
+		                    		window.location.href = res.data.url
 		                    	}
 		                    } else {
-		                    	
+		                    	XHR.isErr(res)
 		                    }
 		                })
 		                .catch(function (err) {
@@ -216,10 +216,10 @@
 		                    	if (nums == '1') {
 		                    		self.$router.go(-1)
 		                    	} else {
-		                    		window.location.href = ''
+		                    		window.location.href = res.data.url
 		                    	}
 		                    } else {
-		                    	
+		                    	XHR.isErr(res)
 		                    }
 		                })
 		                .catch(function (err) {
@@ -239,15 +239,12 @@
 	            self.alertTxt = ''
 	          },3000)
 	        },
-		    remarkInput(curVal,oldVal){
-		    	
-		    },
 		    checkTitle(curVal,oldVal){
-		    	if(curVal.length > '18'){
+		    	if( this.getByteLen(curVal) > '36'){
 		    		this.showAlert("标题不能超出字符范围")
 		    		this.isNull = true
 		    	}
-		    	if(curVal.length <= '18'){
+		    	if(this.getByteLen(curVal) <= '36'){
 		    		this.isNull = false
 		    	}
 		    },
@@ -269,27 +266,26 @@
 		    addImage(sour){
 		    	let self = this
 		    	let txt
+		    	wx.chooseImage({
+				    count: 1,
+				    sizeType: ['original', 'compressed'],
+				    sourceType: [sour],
+				    success: function (res) {
+				    	self.imageUrl = res.localIds[0]
+				        wx.uploadImage({
+						    localId: res.localIds[0],
+						    isShowProgressTips: 1,
+						    success: function (ores) {
+						        self.img.push(ores.serverId)
+						     //    txt = `[图片${self.img.length}]`
+		    					// self.content = self.content + txt
+						    }
+						})
+				    }
+				})
 
-		    	txt = `[图片${self.img.length}]`
-		    	self.content = self.content + txt
-		    	console.log(this.content,sour)
-		  //   	wx.chooseImage({
-				//     count: 1, // 默认9
-				//     sizeType: ['original', 'compressed'],
-				//     sourceType: ['album', 'camera'], 
-				//     success: function (res) {
-				//         var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-				//     }
-				// })
-
-				// wx.uploadImage({
-				//     localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
-				//     isShowProgressTips: 1, // 默认为1，显示进度提示
-				//     success: function (res) {
-				//         var serverId = res.serverId; // 返回图片的服务器端ID
-				//     }
-				// })
 		    }
         }
     }
 </script>
+
