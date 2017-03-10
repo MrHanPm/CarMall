@@ -134,6 +134,7 @@
 				content: '',
 				imageUrl: '',
 				img:[],
+				imgURL:[],
 			}
 		},
 		watch:{
@@ -179,12 +180,18 @@
         	allJSON(){
         		if (!this.isNull) {
         			let json = {}
+        			let imgKey = {}
+        			this.isNull = true
         			if (this.$route.params.articleid !== 'add'){
         				json.articleid = this.$route.params.articleid
         			}
         			json.title = this.amount
         			json.content = this.$children[0].$refs.content.innerHTML
-        			json.mediaids = this.img.join(',')
+        			for(let i=0; i<this.imgURL.length; i++){
+        				let imurl = this.imgURL[i]
+        				imgKey[imurl] = this.img[i]
+        			}
+        			json.mediaids = imgKey
         			return json
         		}
         	},
@@ -202,6 +209,7 @@
 		                    	}
 		                    } else {
 		                    	XHR.isErr(res)
+		                    	self.isNull = false
 		                    }
 		                })
 		                .catch(function (err) {
@@ -220,6 +228,7 @@
 		                    	}
 		                    } else {
 		                    	XHR.isErr(res)
+		                    	self.isNull = false
 		                    }
 		                })
 		                .catch(function (err) {
@@ -253,12 +262,11 @@
 		            this.showAlert("标题不能为空")
 		            return false
 		        }
-		        if(this.content == ''){
+		        if(this.$children[0].$refs.content.innerHTML == ''){
 		            this.showAlert("正文内容不能为空")
 		            return false
 		        }
 		        if(this.isNull){
-		        	this.showAlert('标题或内容不能为空')
 		        	return false
 		        }
 		        return true
@@ -272,6 +280,7 @@
 				    sourceType: [sour],
 				    success: function (res) {
 				    	self.imageUrl = res.localIds[0]
+				    	self.imgURL.push(res.localIds[0])
 				        wx.uploadImage({
 						    localId: res.localIds[0],
 						    isShowProgressTips: 1,

@@ -270,6 +270,7 @@
                 .then(function (res) {
                     // console.log(res)
                     if (res.data.status === 1) {
+                        self.$set(self.DATA[delIndex],'url',res.data.url)
                     	if(nmb == '2'){
                     		self.$set(self.DATA[delIndex],'ispublish',false)
                     	} else {

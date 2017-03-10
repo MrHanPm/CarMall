@@ -4,7 +4,7 @@
 // 后端 API 地址，最好以 http(s):// 打头
 export const HTTP_DEV = 'http://192.168.0.247:8087'
 
-export const HTTPS = 'http://wxcms-api.360che.com/'
+export const HTTPS = 'https://wxcms-api.360che.com/'
 
 export const DEV_URL = ''
 
