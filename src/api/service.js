@@ -91,9 +91,9 @@ class XHR {
     if (res.data.status === 0 && res.data.errInfo.indexOf('其它地点登录') !== -1 ) {
         alert(res.data.errInfo)
 
-          return window.location.href = `${DEV_URL}`
+          // return window.location.href = `${DEV_URL}`
 
-          // return window.location.href = `${PRO_URL}`
+          return window.location.href = `${PRO_URL}`
 
     } else {
       alert(res.data.errInfo)

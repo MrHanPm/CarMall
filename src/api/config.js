@@ -7,7 +7,7 @@ export const HTTPS = 'https://dealer-mall.360che.com/api'
 
 export const DEV_URL = 'https://didi.360che.com/saas/CC_WX/index.html'
 
-export const PRO_URL = 'https://saasm.360che.com/api/WXXS/index.html'
+export const PRO_URL = 'https://saasm.360che.com/carshop/index.html'
 
 export const DEBUG = false
 
