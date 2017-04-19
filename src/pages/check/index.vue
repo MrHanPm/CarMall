@@ -42,7 +42,7 @@
 		</div>
 		<div class="flex-wrap row-flex pname pbtn" style="margin:0;">
 			<input class="page ch-input" placeholder="卡车之家车商城验车／提车码为12位数字串号" 
-			v-model.trim="codes">
+			v-model.trim="codes" type="tel">
 		</div>
 		<div class="flex-wrap row-flex pname pbtn">
 			<div class="page gobtn"

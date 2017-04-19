@@ -32,12 +32,14 @@
           self.$router.push('home')
         } else {
           XHR.isErr(res)
-          self.$router.push('notice')
+          // self.$router.push('notice')
+          window.location.href = 'https://saasm.360che.com/carshop/hot.html'
         }
       })
       .catch(function (err) {
         // self.showAlert('')
-        self.$router.push('notice')
+        // self.$router.push('notice')
+        window.location.href = 'https://saasm.360che.com/carshop/hot.html'
       })
     },
     methods:{
