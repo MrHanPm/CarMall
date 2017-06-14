@@ -72,6 +72,11 @@ export default [
                 component: resolve => require(['../pages/index/'], resolve)
             },
             {
+                path: '/recod', //首页
+                meta: { pageTitle: '订单跟踪' },
+                component: resolve => require(['../pages/recod/'], resolve)
+            },
+            {
                 path: '*', //其他页面，强制跳转到登录页面
                 redirect: '/'
             }

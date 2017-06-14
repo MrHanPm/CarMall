@@ -17,8 +17,7 @@ class XHR {
 
   getIndex () {
     return axios.get(API.getIndex(),{params:{sessionid:SEID}})
-
-    }
+  }
 
 // 订单管理
   getOrder (json) {

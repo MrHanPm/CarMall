@@ -2,14 +2,15 @@
 // 更多配置请根据业务逻辑自行实现
 // console-log XHR:Failed 详情请看控制台
 // 后端 API 地址，最好以 http(s):// 打头
-export const HTTP_DEV = 'http://test-admin-api.mall.com'
+export const HTTP_DEV = 'https://dealer-mall-test.360che.com/api'
 export const HTTPS = 'https://dealer-mall.360che.com/api'
 
 export const DEV_URL = 'https://didi.360che.com/saas/CC_WX/index.html'
 
-export const PRO_URL = 'https://saasm.360che.com/carshop/index.html'
+export const PRO_URL = 'https://saasm.kcimg.cn/carshop/index.html'
 
-export const DEBUG = false
+export const DEBUG = true
+
 
 
 

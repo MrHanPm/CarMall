@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import InfiniteScroll from 'vue-infinite-scroll'
 import routes from './routes/routes'
+import mixins from './mixins'
 
 import components from './components/' //加载公共组件
 
@@ -11,7 +12,7 @@ Object.keys(components).forEach((key) => {
     var name = key.replace(/(\w)/, (v) => v.toUpperCase()) //首字母大写
     Vue.component(`v${name}`, components[key])
 })
-
+Vue.mixin(mixins)
 Vue.use(VueRouter)
 Vue.use(InfiniteScroll)
 

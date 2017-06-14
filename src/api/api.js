@@ -1,7 +1,7 @@
 
 import { HTTP_DEV,HTTPS, DEBUG } from './config'
 let SEK = JSON.parse(localStorage.getItem('vipLodData')) || {}
-let SESSION = '70115_ff4e3f088e1476267abc5c22ac4ff96740500dde'
+let SESSION = '45825_4c7ec5cbd77695793a8920074a80d19545d3899f'
 export const SEID = DEBUG ? SESSION : SEK.sessionid
 
 const HTTP = DEBUG ? HTTP_DEV : HTTPS
