@@ -1,3 +1,32 @@
+<template>
+    <div>
+        <dl v-for="(item, index) in DATA"
+            class="de-box de-msg-box">
+            <dd>跟进时间：{{item.track_time}}</dd>
+            <dd>跟进方式：{{item.status}}</dd>
+            <dd>客户地址：{{item.region}}</dd>
+            <dd>购车用途：{{item.type}}</dd>
+            <dd>意向价格：<i class="red">{{item.track_amount}}万</i></dd>
+            <dt>
+                <pre :class="{press: item.showAll }"><i>备注：</i>{{item.remark}}</pre>
+                <div v-if="item.remark.length > 300"
+                     class="deDown"
+                     :class="{displayNone: item.showAll}"
+                     @click="$emit('show-all', index)">展开全部 ▾</div>
+            </dt>
+        </dl>
+
+    </div>
+</template>
+<script>
+    export default {
+        props: {
+            DATA: Array
+        },
+        methods: {
+        }
+    }
+</script>
 <style lang="less" scoped>
     .de-box{
         min-height: 44px;
@@ -62,32 +91,3 @@
     }
     dl:first-child{margin-top: 2px;}
 </style>
-<template>
-    <div>
-        <dl v-for="(item, index) in DATA"
-            class="de-box de-msg-box">
-            <dd>跟进时间：{{item.track_time}}</dd>
-            <dd>跟进方式：{{item.status}}</dd>
-            <dd>客户地址：{{item.region}}</dd>
-            <dd>购车用途：{{item.type}}</dd>
-            <dd>意向价格：<i class="red">{{item.track_amount}}万</i></dd>
-            <dt>
-                <pre :class="{press: item.showAll }"><i>备注：</i>{{item.remark}}</pre>
-                <div v-if="item.remark.length > 300"
-                     class="deDown"
-                     :class="{displayNone: item.showAll}"
-                     @click="$emit('show-all', index)">展开全部 ▾</div>
-            </dt>
-        </dl>
-
-    </div>
-</template>
-<script>
-    export default {
-        props: {
-            DATA: Array
-        },
-        methods: {
-        }
-    }
-</script>

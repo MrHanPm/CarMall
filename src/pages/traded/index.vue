@@ -40,13 +40,12 @@
             },
             loadPage(){
                 let self = this
-                let nowPage = this.page
                 let json = {}
-                json.status = 2
-                json.page = nowPage
+                json.status = this.$route.query.s
+                json.genre = this.$route.query.g
+                json.page = this.page
                 if (this.loadMore) {
                     this.isLoad = true
-                    nowPage++
                     XHR.getOrder(json)
                     .then(function (res) {
                         // console.log(res)
@@ -55,17 +54,13 @@
                                 self.loadMore = false
                             } else {
                                 self.isLoad = false
-                                self.page = nowPage
+                                self.page++
                             }
                             self.DATA.push(...res.data.data)
                         } else {
                             XHR.isErr(res)
                         }
                         
-                    })
-                    .catch(function (err) {
-                        // self.showAlert('')
-                        // self.$router.push('notice')
                     })
                 }
             }

@@ -1,7 +1,7 @@
 <template>
 	<div class="flex-wrap col-flex dt-box">
         <div class="scroll-wrap bt-min">
-            <div class="item-top-box" @click="jump({path:'/recod',query:{id:VDATA.id}})">您的订单提交。。。</div>
+            <div class="item-top-box" @click="jump({path:'/recod',query:{id:VDATA.id}})">{{VDATA.record_status}}{{VDATA.record_time}}</div>
 
     		<v-mlist :DATA="VDATA"></v-mlist>
     		<header class="flex-wrap row-flex head-box mt10">
@@ -207,7 +207,7 @@
         padding-right: 4px;
     }
 }
-.item-top-box{width: 100%; box-sizing:border-box; padding: 0 14px; background-color: #fff; margin:10px 0; height: 44px; line-height: 44px; font-size: 13px;color: #666; position: relative;}
+.item-top-box{width: 100%; box-sizing:border-box; padding: 0 14px; background-color: #fff; margin:10px 0; height: 44px; line-height: 44px; font-size: 13px;color: #666; position: relative; overflow: hidden;}
 .item-top-box:before{content: ''; display: inline-block; width: 9px;height: 9px;background-color: #56D065; border-radius: 50%; border:3px solid #b6f5be; position: relative; top: 3px; margin-right: 5px;}
-.item-top-box:after{content: '\e683';font-family: 'iconfont'; color: #ccc; position: absolute; right: 14px; font-size: 14px;}
+.item-top-box:after{content: '\e683';font-family: 'iconfont'; color: #ccc; position: absolute; right: 14px; font-size: 14px; top: 0;}
 </style>

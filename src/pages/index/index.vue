@@ -4,15 +4,15 @@
 		<div class="pname">{{name}}</div>
 
 		<div class="flex-wrap col-flex plist">
-			<div class="flex-wrap row-flex page plist-pitem pborder midCenter" @click="jump({path:'/follow',query:{s:1,g:1}})">
+			<div class="flex-wrap row-flex page plist-pitem pborder midCenter" @click="jump({path:'/follow',query:{s:1,g:2}})">
 				<div class="page">跟进中的订单</div>
 				<i v-if="DATA.processCount > '0'">{{DATA.processCount}}</i>
 			</div>
-			<div class="flex-wrap row-flex page plist-pitem midCenter pyan pborder" @click="jump({path:'/follow',query:{s:2,g:1}})">
+			<div class="flex-wrap row-flex page plist-pitem midCenter pyan pborder" @click="jump({path:'/follow',query:{s:2,g:2}})">
 				<div class="page">已完成的订单</div>
 				<i v-if="DATA.completedCount > '0'">{{DATA.completedCount}}</i>
 			</div>
-			<div class="flex-wrap row-flex page plist-pitem midCenter ptt"  @click="jump({path:'/follow',query:{s:3,g:1}})">
+			<div class="flex-wrap row-flex page plist-pitem midCenter ptt"  @click="jump({path:'/follow',query:{s:3,g:2}})">
 				<div class="page">申请退款的订单</div>
 				<i v-if="DATA.refundCount > '0'">{{DATA.refundCount}}</i>
 			</div>

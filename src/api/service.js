@@ -74,6 +74,11 @@ class XHR {
     json.sessionid = SEID
     return  axios.get(API.getMessage(),{params:json})
   }
+// 订单跟踪
+  getRecod (json) {
+    json.sessionid = SEID
+    return  axios.get(API.getRecod(),{params:json})
+  }
 // 修改单条消息状态
   getMsgUpdate (json) {
     json.sessionid = SEID

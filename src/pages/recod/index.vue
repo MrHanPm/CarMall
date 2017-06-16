@@ -2,24 +2,18 @@
     <div class="flex-wrap col-flex rod-box">
         <div class="item-top-box">订单跟踪</div>
         <div class="scroll-wrap">
-            <section class="flex-wrap row-flex da-box">
+
+            <section v-for="(em, index) in DATA"
+            class="flex-wrap row-flex da-box">
                 <div class="flex-wrap col-flex da-line midCenter">
                     <div> </div>
                 </div>
                 <div class="flex-wrap col-flex da-msg midCenter">
-                    <div class="da-list">处理类型：</div>
-                    <div class="da-list">处理类型：</div>
+                    <div class="da-list">{{em.record_status}}</div>
+                    <div class="da-list">{{em.record_time}}</div>
                 </div>
             </section>
-            <section class="flex-wrap row-flex da-box">
-                <div class="flex-wrap col-flex da-line midCenter">
-                    <div> </div>
-                </div>
-                <div class="flex-wrap col-flex da-msg midCenter">
-                    <div class="da-list">处理类型：</div>
-                    <div class="da-list">处理类型：</div>
-                </div>
-            </section>
+
         </div>
     </div>
 </template>
@@ -28,50 +22,25 @@
     export default {
         data() {
             return {
-                table: 3,
-                loadMore: true,
-                isLoad: false,
-                page:1,
                 DATA: []
             }
         },
         created () {
-            
+            this.loadPage()
         },
         methods:{
-            clickTab(index){
-                this.table = index
-            },
             loadPage(){
                 let self = this
-                let nowPage = this.page
                 let json = {}
-                json.status = 3
-                json.page = nowPage
-                if (this.loadMore) {
-                    this.isLoad = true
-                    nowPage++
-                    XHR.getOrder(json)
-                    .then(function (res) {
-                        // console.log(res)
-                        if (res.data.status === 1) {
-                            if(res.data.latest === 1) {
-                                self.loadMore = false
-                            } else {
-                                self.isLoad = false
-                                self.page = nowPage
-                            }
-                            self.DATA.push(...res.data.data)
-                        } else {
-                            XHR.isErr(res)
-                        }
-                        
-                    })
-                    .catch(function (err) {
-                        // self.showAlert('')
-                        // self.$router.push('notice')
-                    })
-                }
+                json.id = this.$route.query.id
+                XHR.getRecod(json)
+                .then(function (res) {
+                    if (res.data.status === 1) {
+                        self.DATA = res.data.data
+                    } else {
+                        XHR.isErr(res)
+                    }
+                })
             }
         }
     }
@@ -82,7 +51,7 @@
     height: 100%;
     overflow: hidden;
 }
-.item-top-box{width: 100%; box-sizing:border-box; padding-left:14px; background-color: #fff; margin-top:10px; height: 44px; line-height: 44px; font-size: 13px;color: #666; position: relative;}
+.item-top-box{width: 100%; box-sizing:border-box; padding-left:14px; background-color: #fff; margin-top:10px; height: 44px; line-height: 44px; font-size: 14px;color: #666; position: relative;}
 .item-top-box:before{content: ''; display: inline-block; width: 9px;height: 9px;background-color: #56D065; border-radius: 50%; border:3px solid #b6f5be; position: relative; top: 3px; margin-right: 5px;}
 .item-top-box:after{content: ''; color: #ccc; display: block; width: 100%; height: 2px; border-bottom: 1px solid #E3EBF7; position: relative;top: -3px;}
 .scroll-wrap{background-color: #fff;}
@@ -123,14 +92,13 @@
                 .da-list{
                     flex:1;
                     width: 100%;
-                    color: #999;
+                    color: #666;
                     overflow: hidden;
                     box-sizing: border-box;
                     padding-right: 10px;
                     text-align: left;
-
                 }
-                
+                .da-list:last-child{color: #999;}
         }
     }
     .da-box:first-child{

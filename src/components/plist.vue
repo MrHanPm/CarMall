@@ -18,8 +18,10 @@
                 </div>
                 <div class="ib-items page">
                     <div>{{item.productInfo.name}}</div>
-                    <div>{{cachNumb(item.status)}}：{{item.plan_date}}</div>
+                    <div v-if="item.plan_date">{{cachNumb(item.status)}}：{{item.plan_date}}</div>
                     <div>已付定金：<i class="red">{{item.margin}}元</i></div>
+                    <div v-if="item.productInfo.deductible">抵扣金额：{{item.productInfo.deductible}}元</div>
+                    <div v-if="item.productInfo.exist_gift == 2">赠品：{{item.productInfo.gift_message}}</div>
                 </div>
             </div>
     	</section>
@@ -67,7 +69,7 @@
     .item-box {
         background: #fff;
         margin-top: 10px;
-        height: 180px;
+        min-height: 180px;
         font-size: 15px;
         padding-left: 15px;
         .ib-time,.ib-nobe{
