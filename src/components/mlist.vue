@@ -21,7 +21,7 @@
         <div v-for="(em,index) in PA">{{em.name}}：{{em.value}}</div>
       </div>
     </div>
-    <div v-if="DATA.genre == 2" class="vsin-box" @click="openDiv"></div>
+    <div v-if="DATA.genre == 2 && !isAll" class="vsin-box" @click="openDiv"></div>
   </section>
 </template>
 <script>

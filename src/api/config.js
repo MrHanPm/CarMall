@@ -9,7 +9,7 @@ export const DEV_URL = 'https://didi.360che.com/saas/CC_WX/index.html'
 
 export const PRO_URL = 'https://saasm.kcimg.cn/carshop/index.html'
 
-export const DEBUG = true
+export const DEBUG = false
 
 
 
